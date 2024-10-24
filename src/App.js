@@ -30,8 +30,31 @@ class App extends Component {
     const data = this.state.wordFrequency.sort((a,b)=>b[1]-a[1]).slice(0,5)
     console.log("Data:",data)
     // your code here
+    var container = d3.select('.svg_parent')
+      .attr('width', 1000)
+      .attr('height', 300)
 
-    //d3.select('.child2').append()
+    var words = data.map(word=>word[0])
+    const scale = d3.scaleLinear().domain([words]).range(0, 300);
+    container.selectAll(".words_g").data([0]).join('g').attr("class", 'words_g')
+    .attr("transform", `translate(0, 0)`).call(d3.axisBottom(scale));
+
+    // container
+    //   .data(data)
+    //   .append('text')
+    //   // .attr('transform', `translate(40,100)`)
+    //   .attr('font-size', '16px')
+    //   .text(function(){
+    //     for(var i = 0; i < data.length; i++)
+    //       return data[i]
+    //   })
+    //   .call(scale)
+
+
+    // var x_data=data.map(item=>item.total_bill)
+    // const x_scale = d3.scaleLinear().domain([0,d3.max(x_data)]).range([margin.left,w]);
+    // container.selectAll(".x_axis_g").data([0]).join('g').attr("class", 'x_axis_g')
+    // .attr("transform", `translate(0, ${h})`).call(d3.axisBottom(x_scale));
     
   }
 
@@ -46,7 +69,7 @@ class App extends Component {
               }}
             > Generate WordCloud</button>
         </div>
-        <div className="child2">
+        <div className="child2" style={{width: 1000, height:300}}>
           <svg className="svg_parent">
             
           </svg>
