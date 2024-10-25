@@ -35,7 +35,7 @@ class App extends Component {
       words.push(data[i][0])
       counts.push(data[i][1])
     }
-    console.log(words, counts)
+    //console.log(words, counts)
 
 
 
@@ -43,10 +43,13 @@ class App extends Component {
       .attr('width', 1000)
       .attr('height', 300)
 
-    const positionScale = d3.scaleLinear().domain([0, 4]).range([50, 850]);
-    console.log("scale:", positionScale(1))
+    const positionScale = d3.scaleLinear().domain([0, 4]).range([10, 700]);
+
+    d3.select(".words_g")
+      .remove()
 
     container.append("g")
+      .attr("class", "words_g")
       .attr("transform", `translate(0,0)`)
       .selectAll("text")
         .data(words)
@@ -58,13 +61,16 @@ class App extends Component {
           return positionScale(i)
         })
         .attr("y", 150)
-        .attr("font-size", function(d,i){
-          return counts[i] * 8
-        })
+        .attr("font-size", 0)
+        .transition()
+          .duration(5000)
+          .attr("font-size", function(d,i){
+            return counts[i] * 7
+          })
 
 
 
-        
+
   }
 
   render() {
