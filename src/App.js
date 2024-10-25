@@ -28,34 +28,43 @@ class App extends Component {
 
   renderChart() {
     const data = this.state.wordFrequency.sort((a,b)=>b[1]-a[1]).slice(0,5)
-    console.log("Data:",data)
-    // your code here
+    
+    var words = []
+    var counts = []
+    for(var i = 0; i < data.length; i++){
+      words.push(data[i][0])
+      counts.push(data[i][1])
+    }
+    console.log(words, counts)
+
+
+
     var container = d3.select('.svg_parent')
       .attr('width', 1000)
       .attr('height', 300)
 
-    var words = data.map(word=>word[0])
-    const scale = d3.scaleLinear().domain([words]).range(0, 300);
-    container.selectAll(".words_g").data([0]).join('g').attr("class", 'words_g')
-    .attr("transform", `translate(0, 0)`).call(d3.axisBottom(scale));
+    const positionScale = d3.scaleLinear().domain([0, 4]).range([50, 850]);
+    console.log("scale:", positionScale(1))
 
-    // container
-    //   .data(data)
-    //   .append('text')
-    //   // .attr('transform', `translate(40,100)`)
-    //   .attr('font-size', '16px')
-    //   .text(function(){
-    //     for(var i = 0; i < data.length; i++)
-    //       return data[i]
-    //   })
-    //   .call(scale)
+    container.append("g")
+      .attr("transform", `translate(0,0)`)
+      .selectAll("text")
+        .data(words)
+      .enter().append("text")
+        .text(function(d,i) {
+          return words[i]
+        })
+        .attr("x", function(d,i){
+          return positionScale(i)
+        })
+        .attr("y", 150)
+        .attr("font-size", function(d,i){
+          return counts[i] * 8
+        })
 
 
-    // var x_data=data.map(item=>item.total_bill)
-    // const x_scale = d3.scaleLinear().domain([0,d3.max(x_data)]).range([margin.left,w]);
-    // container.selectAll(".x_axis_g").data([0]).join('g').attr("class", 'x_axis_g')
-    // .attr("transform", `translate(0, ${h})`).call(d3.axisBottom(x_scale));
-    
+
+        
   }
 
   render() {
