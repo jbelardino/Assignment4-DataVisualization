@@ -1,3 +1,8 @@
+Generates a WordCloud, which changes the size of the word displayed depending on how frequently it appears. The full project can be viewed here: https://jbelardino.github.io/Assignment4-DataVisualization/
+
+<img width="1013" height="601" alt="image" src="https://github.com/user-attachments/assets/161e7826-4b03-44be-bdbd-f558edb64552" />
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
